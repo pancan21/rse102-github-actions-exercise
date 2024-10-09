@@ -24,6 +24,6 @@ jobs:
         with:
           python-version: '3.12'
       - name: "Install pytest"
-        run: pip install pytest
+        run: pip install pytest matplotlib numpy
       - name: "Run pytest"
         run: python -m pytest tests/
