@@ -27,7 +27,7 @@ jobs:
       - name: "Run pytest and create coverage report as artifact"
         run: coverage run -m pytest
       - name: "Upload coverage report"
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: coverage-report
           path: .coverage
@@ -43,7 +43,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: "Download coverage report"
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: coverage-report
       - name: "Install coverage"
@@ -51,7 +51,7 @@ jobs:
       - name: "Generate coverage report"
         run: coverage xml
       - name: "Upload coverage report"
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: coverage-xml
           path: coverage.xml
