@@ -16,7 +16,7 @@ jobs:
         run: black --check .
 
   test:
-    needs: style
+    needs: style_check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
