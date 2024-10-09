@@ -24,6 +24,37 @@ jobs:
         with:
           python-version: '3.12'
       - name: "Install pytest"
-        run: pip install pytest matplotlib numpy
-      - name: "Run pytest"
-        run: python -m pytest tests/
+        run: pip install pytest matplotlib numpy coverage
+      - name: "Run pytest and create coverage report as artifact"
+        run: coverage run -m pytest
+        env:
+          COVERAGE_FILE: .coverage
+      - name: "Upload coverage report"
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-report
+          path: .coverage
+          retention-days: 1
+  
+  coverage_report: # use .coverage file to generate coverage report and convert it to xml
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: "Download coverage report"
+        uses: actions/download-artifact@v2
+        with:
+          name: coverage-report
+      - name: "Install coverage"
+        run: pip install coverage
+      - name: "Generate coverage report"
+        run: coverage xml
+      - name: "Upload coverage report"
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-xml
+          path: coverage.xml
+          retention-days: 14
