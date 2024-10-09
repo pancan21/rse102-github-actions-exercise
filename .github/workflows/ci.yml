@@ -58,3 +58,7 @@ jobs:
           retention-days: 14
       - name: "Create coverage badge"
         uses: tj-actions/coverage-badge-py@v2
+        with:
+          output: coverage.svg
+          overwrite: true
+
